@@ -1,20 +1,17 @@
 import React from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
-import ServiceRoutes from "./utils/ServiceRoutes";
-import routes from "../config/services";
-import Header from "./Header";
-import Page from "./Page";
+import { Provider } from "react-redux";
+import { ConnectedRouter } from "connected-react-router";
+import { store, history } from "./store";
+import Routes from "./lib/routes";
+import Header from "./components/Header";
 
 const App = () => (
-  <BrowserRouter>
-    <React.Fragment>
+  <Provider store={store}>
+    <ConnectedRouter history={history}>
       <Header />
-      <Switch>
-        <Route path="/page" render={Page} />
-        <ServiceRoutes routes={routes} />
-      </Switch>
-    </React.Fragment>
-  </BrowserRouter>
+      <Routes />
+    </ConnectedRouter>
+  </Provider>
 );
 
 export default App;

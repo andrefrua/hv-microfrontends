@@ -1,19 +1,15 @@
 import React from "react";
-import { Router, Route, Switch } from "react-router-dom";
-import { createBrowserHistory } from "history";
+import { Provider } from "react-redux";
+import { ConnectedRouter } from "connected-react-router";
+import { store, history } from "./store";
+import Routes from "./lib/routes";
 
-import List from "./List";
-import Details from "./Details";
-
-const defaultHistory = createBrowserHistory();
-
-const App = ({ history }) => (
-  <Router history={history || defaultHistory}>
-    <Switch>
-      <Route exact path="/people" component={List} />
-      <Route exact path="/people/:id" component={Details} />
-    </Switch>
-  </Router>
+const App = () => (
+  <Provider store={store}>
+    <ConnectedRouter history={history}>
+      <Routes />
+    </ConnectedRouter>
+  </Provider>
 );
 
 export default App;

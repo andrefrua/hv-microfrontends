@@ -1,27 +1,36 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { getPeople } from "../store/people/thunks";
+import { getPeople, getMore } from "../store/people/thunks";
 
 const List = ({ people, dispatch }) => {
-  const { list } = people;
+  const { results, next, isFetching } = people;
 
   useEffect(() => {
-    dispatch(getPeople());
+    if (!results.length) dispatch(getPeople());
   }, []);
 
   return (
-    <ul>
-      {list.map(elem => {
-        const id = elem.url.split("/").reverse()[1];
+    <>
+      <button
+        onClick={() => {
+          !isFetching && dispatch(getMore(next));
+        }}
+      >
+        + people
+      </button>
+      <ul>
+        {results.map(elem => {
+          const id = elem.url.split("/").reverse()[1];
 
-        return (
-          <Link key={id} to={`/people/${id}`}>
-            <li>{elem.name}</li>
-          </Link>
-        );
-      })}
-    </ul>
+          return (
+            <Link key={elem.name} to={`/people/${id}`}>
+              <li>{elem.name}</li>
+            </Link>
+          );
+        })}
+      </ul>
+    </>
   );
 };
 

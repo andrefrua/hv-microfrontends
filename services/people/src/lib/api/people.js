@@ -1,7 +1,13 @@
 const fetchPeople = async () => {
   const res = await fetch("https://swapi.co/api/people");
   const data = await res.json();
-  return data.results;
+  return data;
+};
+
+const fetchMore = async url => {
+  const res = await fetch(url);
+  const data = await res.json();
+  return data;
 };
 
 const fetchDetails = async id => {
@@ -10,4 +16,4 @@ const fetchDetails = async id => {
   return data;
 };
 
-export { fetchPeople, fetchDetails };
+export { fetchPeople, fetchMore, fetchDetails };

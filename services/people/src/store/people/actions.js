@@ -1,6 +1,6 @@
 export const SET_PEOPLE = "SET_PEOPLE";
 export const SET_DETAILS = "SET_DETAILS";
-export const RESET_DETAILS = "RESET_DETAILS";
+export const IS_FETCHING = "IS_FETCHING";
 
 export const setPeople = people => {
   return {
@@ -16,8 +16,9 @@ export const setDetails = details => {
   };
 };
 
-export const resetDetails = () => {
+export const isFetching = isFetching => {
   return {
-    type: RESET_DETAILS
+    type: IS_FETCHING,
+    payload: isFetching
   };
 };

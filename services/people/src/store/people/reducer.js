@@ -1,9 +1,11 @@
 import produce from "immer";
-import { SET_PEOPLE, SET_DETAILS, RESET_DETAILS } from "./actions";
+import { SET_PEOPLE, SET_DETAILS, IS_FETCHING } from "./actions";
 
 const initialState = {
-  list: [],
-  details: null
+  results: [],
+  next: null,
+  details: null,
+  isFetching: false
 };
 
 const reducer = produce((draft, action) => {
@@ -11,15 +13,16 @@ const reducer = produce((draft, action) => {
 
   switch (type) {
     case SET_PEOPLE: {
-      draft.list = [...payload];
+      draft.results = [...draft.results, ...payload.results];
+      draft.next = payload.next;
       return draft;
     }
     case SET_DETAILS: {
       draft.details = payload;
       return draft;
     }
-    case RESET_DETAILS: {
-      draft.details = null;
+    case IS_FETCHING: {
+      draft.isFetching = payload;
       return draft;
     }
   }

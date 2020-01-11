@@ -4,14 +4,14 @@ import { getDetails } from "../store/people/thunks";
 import { useParams } from "react-router-dom";
 
 const Details = ({ people, dispatch }) => {
-  const { details } = people;
+  const { details, isFetching } = people;
   const { id } = useParams();
 
   useEffect(() => {
     dispatch(getDetails(id));
   }, []);
 
-  return details ? (
+  return !isFetching && details ? (
     <h1>
       {details.name} --- {details.birth_year}
     </h1>

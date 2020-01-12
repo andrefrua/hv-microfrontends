@@ -3,10 +3,11 @@ import { connectRouter } from "connected-react-router";
 
 import servicesReducer from "./services/reducers";
 
-const createRootReducer = history =>
+const createRootReducer = (history, asyncReducers) =>
   combineReducers({
     services: servicesReducer,
-    router: connectRouter(history)
+    router: connectRouter(history),
+    ...asyncReducers
   });
 
 export default createRootReducer;

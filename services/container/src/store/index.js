@@ -20,7 +20,15 @@ const middlewares = [thunk, routerMiddleware(history)];
 
 // Create store with the combined reducers, and the initial Redux state.
 export const store = createStore(
-  createRootReducer(history),
+  createRootReducer(history, {}),
   initialState,
   composeEnhancers(applyMiddleware(...middlewares))
 );
+
+store.asyncReducers = {};
+
+store.injectReducer = (key, reducer) => {
+  store.asyncReducers[key] = reducer;
+  store.replaceReducer(createRootReducer(history, store.asyncReducers));
+  return store;
+};

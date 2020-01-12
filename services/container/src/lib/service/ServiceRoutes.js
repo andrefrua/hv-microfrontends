@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Route } from "react-router-dom";
 import ServiceLoader from "./ServiceLoader";
 import { getServices } from "../../store/services/thunks";
+import { store } from "../../store";
 
 const ServicesRoutes = ({ services, getServices }) => {
   useEffect(() => {
@@ -14,7 +15,11 @@ const ServicesRoutes = ({ services, getServices }) => {
       key={service.name}
       path={`/${service.name}`}
       component={({ history }) => (
-        <ServiceLoader history={history} host={`http://${service.host}`} />
+        <ServiceLoader
+          history={history}
+          store={store}
+          host={`http://${service.host}`}
+        />
       )}
     />
   ));
